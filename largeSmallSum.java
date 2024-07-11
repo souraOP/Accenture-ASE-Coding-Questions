@@ -65,9 +65,7 @@ public class largeSmallSum {
         Collections.sort(evenNums);
         Collections.sort(oddNums);
 
-        int getSecondLargest = evenNums.get(evenNums.size() - 2);
-        int getSecondSmallest = oddNums.get(oddNums.size() - 2);
-        return getSecondLargest + getSecondSmallest;
+        return evenNums.get(evenNums.size() - 2) + oddNums.get(oddNums.size() - 2);
 
 
 
