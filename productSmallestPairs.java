@@ -38,7 +38,7 @@ Sample Output
 
  */
 
-import java.util.*;
+import java.util.Scanner;
 
 public class productSmallestPairs {
     public static void main(String[] args) {
@@ -46,32 +46,43 @@ public class productSmallestPairs {
         int sum = sc.nextInt();
         int n = sc.nextInt();
         int[] arr = new int[n];
-        for(int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+
+        for(int i=0; i < n; i++){
+            arr[i]= sc.nextInt();
         }
-        System.out.println(solve(sum, n, arr));
+        System.out.println(solve(arr, n, sum));
         sc.close();
     }
 
-    public static int solve(int sum, int n, int[] arr) {
-        int temp, check;
-        if(n < 2) {
+    // intuition:
+
+    /* 
+    
+    1. Sort the array in ascending order using Collection sort or using two pointers
+    2. get the sum of first two elements from "sorted" array ie arr[0] + arr[1]
+    3. check if the sum is less than given sum from the question
+    4. if yes, return the product of first two elements since they will alwyas be the smallest pairs ie arr[0] * arr[1]
+    5. if not, return 0 as per mentioned in the question
+
+     */
+    public static int solve(int[] arr, int n, int sum) {
+        if(arr == null || n < 2) {
             return -1;
         }
-        for (int i = 0; i < n; i++){
-            for (int j = i + 1; j < n; j++){
-                if (arr[i] > arr[j]){
-                    temp = arr[i];
-                    arr[i] = arr[j];
-                    arr[j] = temp;
-
+        for(int i = 0; i < n; i++){
+            for(int j = i + 1; j < n; j++){
+                if(arr[i] > arr[j]) {
+                    arr[i] = arr[i] ^ arr[j];
+                    arr[j] = arr[i] ^ arr[j];
+                    arr[i] = arr[i] ^ arr[j];
                 }
             }
         }
-        check = arr[0] + arr[1];
-        if (check <= sum) {
+        int check = arr[0] + arr[1];
+        if(check <= sum){
             return arr[0] * arr[1];
         }
         return 0;
+        
     }
-}
+ }
